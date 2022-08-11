@@ -3,4 +3,4 @@ INSERT INTO entry (
     text
 ) VALUES (
     'Sample Title', 'Sample text'
-)
+);
