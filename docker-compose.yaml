@@ -1,0 +1,43 @@
+version: "1"
+name: "simple-full-stack"
+services:
+  client:
+    image: node:latest
+    ports:
+      - 8080:8080
+    environment:
+      - PORT=8080
+    volumes:
+      - type: bind
+        source: ./client
+        target: /client
+    working_dir: /client
+    command: bash -c "npm install && npm run start"
+  db:
+    container_name: simple-full-stack-postgres
+    image: postgres:latest
+    volumes:
+      - ./data:/docker-entrypoint-initdb.d:ro
+      - dbdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=password
+  api:
+    container_name: simple-full-stack-api
+    image: node:slim
+    volumes:
+      - type: bind
+        source: ./backend
+        target: /code
+    working_dir: /code
+    ports: 
+      - 3000:3000
+    environment:
+      - PORT=3000
+      - PGHOST=db
+      - PGUSER=postgres
+      - PGDATABASE=postgres
+      - PGPASSWORD=password
+      - PGPORT=5432
+    command: bash -c "npm install && npm run dev"
+volumes:
+  dbdata:

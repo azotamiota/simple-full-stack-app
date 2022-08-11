@@ -1,0 +1,1 @@
+./scripts/teardown.sh && ./scripts/startup.sh

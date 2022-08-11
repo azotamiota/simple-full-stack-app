@@ -6,8 +6,10 @@ class Post {
         this.text = data.text
     }
 
-    static showAll () {
-
+    static async showAll () {
+       return postDatabase.query('SELECT * FROM entry;')
+            .then(res => res.rows.map(post => new Post(post)))
+            .catch(error => console.log('Error while fetching data from entry table'))
     }
 }
 
