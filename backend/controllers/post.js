@@ -4,6 +4,7 @@ async function showAll (req, res) {
 
     try {
         const posts = await Post.showAll()
+        console.log('this will go back to frontend: ', posts)
         res.json(posts)
     } catch (error) {
         console.log('Can\'t fetch posts from database')
@@ -14,7 +15,7 @@ async function showAll (req, res) {
 async function create (req, res) {
 
     try {
-        const posts = await Post.create()
+        const posts = await Post.create(req.body.title, req.body.text)
         res.json(posts)
     } catch (error) {
         console.log('Can\'t create new post')

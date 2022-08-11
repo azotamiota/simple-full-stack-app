@@ -11,6 +11,11 @@ class Post {
             .then(res => res.rows.map(post => new Post(post)))
             .catch(error => console.log('Error while fetching data from entry table'))
     }
+
+    static async create (title, text) {
+        return postDatabase.query("INSERT INTO entry (title, text) VALUES ($1, $2)", [title, text])
+            .catch(error => console.log('Can\'t create new Post: ', error))
+    }
 }
 
 module.exports = Post
