@@ -2,7 +2,7 @@ version: "1"
 name: "simple-full-stack"
 services:
   client:
-    image: node:latest
+    image: node:slim
     ports:
       - 8080:8080
     environment:

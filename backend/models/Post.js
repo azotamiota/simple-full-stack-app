@@ -13,8 +13,9 @@ class Post {
     }
 
     static async create (title, text) {
-        return postDatabase.query("INSERT INTO entry (title, text) VALUES ($1, $2)", [title, text])
-            .catch(error => console.log('Can\'t create new Post: ', error))
+        console.log('These are the title and text in Post.create() funciton: ', title, text)
+        return postDatabase.query("INSERT INTO entry (title, text) VALUES ($1, $2) RETURNING *", [title, text])
+            .catch(error => console.log('Can\'t create new Post: ', error.error))
     }
 }
 

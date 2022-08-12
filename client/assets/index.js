@@ -31,9 +31,10 @@ const getDataFromInput = () => {
     return {title, text} //this returns {title: "THE VALUE HERE", text: "THE VALUE"}
 }
 
-const sendInputToBackend = (inputTitle, inputText) => {
+const sendInputToBackend = (title, text) => {
 
-    const payload = {inputTitle, inputText}
+    const payload = {title, text}
+
 
     console.log('payload to send in the body: ', payload)
 
@@ -55,14 +56,25 @@ const sendInputToBackend = (inputTitle, inputText) => {
         .catch(error => console.log('Error while posting data: ', error))
 
 }
+function addTextToPage (title, text) {
+    const titleBox = document.createElement('h2', 'title-output')
+    titleBox.textContent = title
+    resultContainer.appendChild(titleBox)
+    const textBox = document.createElement('h3', 'title-output')
+    textBox.textContent = text
+    resultContainer.appendChild(textBox)
+}
+
 const submitButton = document.getElementById('submit-button')
 submitButton.addEventListener('click', (event) => {
     event.preventDefault();
 
     const {title, text} = getDataFromInput()
     sendInputToBackend(title, text)
+    addTextToPage(title, text)
     // console.log('What format is this? ', title, text)
 })
+
 
 window.addEventListener('load', () => {
     loadPage();
